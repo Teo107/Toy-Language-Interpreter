@@ -12,11 +12,11 @@ public class ArithExp implements IExp {
     private int op; // 1-plus, 2-minus, 3-star, 4-division
 
     @Override
-    public IValue eval(MyIDictionary<String, IValue> tbl)  throws MyException{
+    public IValue eval(MyIDictionary<String, IValue> dict)  throws MyException{
         IValue v1,v2;
-        v1= e1.eval(tbl);
+        v1= e1.eval(dict);
         if (v1.getType().equals(new IntType())) {
-            v2 = e2.eval(tbl);
+            v2 = e2.eval(dict);
             if (v2.getType().equals(new IntType())) {
                 IntValue i1 = (IntValue)v1;
                 IntValue i2 = (IntValue)v2;

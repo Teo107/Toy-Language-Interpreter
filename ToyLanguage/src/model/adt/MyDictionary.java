@@ -20,7 +20,7 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V> {
     }
 
     @Override
-    public V getvalue(K key) {
+    public V getValue(K key) {
         return map.get(key);
     }
 
