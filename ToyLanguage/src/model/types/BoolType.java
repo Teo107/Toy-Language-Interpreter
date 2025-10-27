@@ -1,7 +1,7 @@
 package model.types;
 
 public class BoolType implements IType {
-    public boolean eqauls(Object another){
+    public boolean equals(Object another){
         return another instanceof BoolType;
     }
 

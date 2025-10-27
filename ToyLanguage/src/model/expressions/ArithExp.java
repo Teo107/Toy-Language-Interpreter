@@ -11,6 +11,12 @@ public class ArithExp implements IExp {
     private IExp e2;
     private int op; // 1-plus, 2-minus, 3-star, 4-division
 
+    public ArithExp(IExp e1, int op, IExp e2) {
+        this.e1 = e1;
+        this.op = op;
+        this.e2 = e2;
+    }
+
     @Override
     public IValue eval(MyIDictionary<String, IValue> dict)  throws MyException{
         IValue v1,v2;
@@ -29,12 +35,17 @@ public class ArithExp implements IExp {
                 if (op==4)
                     if(n2==0) throw new MyException("division by zero");
                     else  return new IntValue(n1/n2);
-
-                throw new MyException("Invalid operator");
             } else
                 throw new MyException("second operand is not an integer");
         } else
             throw new MyException("first operand is not an integer");
+        throw new MyException("Invalid operator");
+    }
+
+    @Override
+    public IExp deepCopy()
+    {
+        return new ArithExp(e1.deepCopy(), op, e2.deepCopy());
     }
 
     @Override

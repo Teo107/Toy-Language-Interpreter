@@ -11,6 +11,11 @@ public class LogicExp implements IExp {
     private IExp e2;
     int op; // 1 - and; 2 - or
 
+    public LogicExp(IExp e1, int op,  IExp e2) {
+        this.e1 = e1;
+        this.op = op;
+        this.e2 = e2;
+    }
 
     @Override
     public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
@@ -32,6 +37,11 @@ public class LogicExp implements IExp {
             }else throw new MyException("Second operand is not boolean");
 
         }else throw new MyException("First operand is not boolean");
+    }
+
+    @Override
+    public IExp deepCopy() {
+        return new LogicExp(e1.deepCopy(), op, e2.deepCopy());
     }
 
     @Override
