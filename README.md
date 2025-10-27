@@ -20,7 +20,7 @@ It is implemented following the **Model–View–Controller (MVC)** architecture
 ## ▶️ How to Run
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Teo107/ToyLanguageInterpreter.git
+   git clone https://github.com/Teo107/Toy-Language-Interpreter.git
    ```
 2. Open the project in **IntelliJ IDEA** or any Java IDE.
 3. Build and run `Main.java`.
