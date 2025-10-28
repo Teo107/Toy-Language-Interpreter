@@ -11,7 +11,7 @@ public class ArithExp implements IExp {
     private IExp e2;
     private int op; // 1-plus, 2-minus, 3-star, 4-division
 
-    public ArithExp(IExp e1, int op, IExp e2) {
+    public ArithExp(int op, IExp e1, IExp e2) {
         this.e1 = e1;
         this.op = op;
         this.e2 = e2;
@@ -45,7 +45,7 @@ public class ArithExp implements IExp {
     @Override
     public IExp deepCopy()
     {
-        return new ArithExp(e1.deepCopy(), op, e2.deepCopy());
+        return new ArithExp(op, e1.deepCopy(), e2.deepCopy());
     }
 
     @Override

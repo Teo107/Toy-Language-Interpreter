@@ -18,10 +18,12 @@ public class MyList<V> implements MyIList<V>{
     @Override
     public String toString(){
         String result = "[ ";
-        for(V values : this.list){
-            result += values + ", ";
+        for( int i = 0; i< this.list.size(); i++ ){
+            result +=  list.get(i).toString();
+            if(i != this.list.size()-1)
+                result += ", ";
         }
-        result += "]";
+        result += " ]";
         return result;
     }
 }

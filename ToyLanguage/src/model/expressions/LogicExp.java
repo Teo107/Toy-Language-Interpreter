@@ -11,7 +11,7 @@ public class LogicExp implements IExp {
     private IExp e2;
     int op; // 1 - and; 2 - or
 
-    public LogicExp(IExp e1, int op,  IExp e2) {
+    public LogicExp(int op, IExp e1,  IExp e2) {
         this.e1 = e1;
         this.op = op;
         this.e2 = e2;
@@ -41,7 +41,7 @@ public class LogicExp implements IExp {
 
     @Override
     public IExp deepCopy() {
-        return new LogicExp(e1.deepCopy(), op, e2.deepCopy());
+        return new LogicExp(op, e1.deepCopy(), e2.deepCopy());
     }
 
     @Override

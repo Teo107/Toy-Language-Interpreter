@@ -31,7 +31,6 @@ public class Controller {
             oneStep(prg);
             System.out.println("Current state: " + prg);
         }
-        System.out.println("Final state: " + prg);
     }
 
 }
