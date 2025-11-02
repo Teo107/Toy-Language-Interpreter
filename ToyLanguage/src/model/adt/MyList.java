@@ -3,10 +3,10 @@ package model.adt;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyList<V> implements MyIList<V>{
+public class MyList<V> implements MyIList<V> {
     private List<V> list;
 
-    public MyList(){
+    public MyList() {
         this.list = new ArrayList<V>();
     }
 
@@ -16,12 +16,12 @@ public class MyList<V> implements MyIList<V>{
     }
 
     @Override
-    public String toString(){
-        String result = "[ ";
-        for( int i = 0; i< this.list.size(); i++ ){
-            result +=  list.get(i).toString();
-            if(i != this.list.size()-1)
-                result += ", ";
+    public String toString() {
+        String result = "[ \n";
+        for (int i = 0; i < this.list.size(); i++) {
+            result += list.get(i).toString();
+            if (i != this.list.size() - 1)
+                result += "\n ";
         }
         result += " ]";
         return result;

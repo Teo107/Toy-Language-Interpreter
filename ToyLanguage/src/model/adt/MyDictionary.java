@@ -28,9 +28,9 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V> {
     public String toString() {
         Map<K,V> copy = new HashMap<K,V>(this.map);
 
-        String result = "{ ";
+        String result = "{ \n";
         for ( K key: copy.keySet() )
-            result += key + "->" + copy.get(key) + ";";
+            result += key + "->" + copy.get(key) + "\n";
         result += "}";
         return result;
     }

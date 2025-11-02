@@ -22,7 +22,7 @@ public class ValueExp implements IExp {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return value.toString();
     }
 }

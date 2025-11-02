@@ -19,7 +19,7 @@ public class View {
         this.controller = controller;
     }
 
-    public void run(IStmt program){
+    public void run(IStmt program) {
         MyIStack<IStmt> stk = new MyStack<>();
         MyIDictionary<String, IValue> symTbl = new MyDictionary<>();
         MyIList<IValue> out = new MyList<>();
@@ -28,7 +28,7 @@ public class View {
         IRepository repo = new Repository(prg);
         Controller controller = new Controller(repo);
 
-        try{
+        try {
             System.out.println("Run:");
             controller.allStep();
             System.out.println(out);

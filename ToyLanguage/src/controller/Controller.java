@@ -6,7 +6,6 @@ import model.adt.MyIStack;
 import model.statements.IStmt;
 import repository.IRepository;
 
-import java.sql.SQLOutput;
 
 public class Controller {
     private IRepository repo;
@@ -27,7 +26,7 @@ public class Controller {
     public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
         System.out.println("Initial state: " + prg);
-        while(!prg.getExeStack().isEmpty()){
+        while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
             System.out.println("Current state: " + prg);
         }

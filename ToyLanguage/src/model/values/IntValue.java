@@ -6,21 +6,21 @@ import model.types.IType;
 public class IntValue implements IValue {
     private int value;
 
-    public IntValue(int value){
+    public IntValue(int value) {
         this.value = value;
     }
 
-    public int getValue(){
+    public int getValue() {
         return this.value;
     }
 
     @Override
-    public IType getType(){
+    public IType getType() {
         return new IntType();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.valueOf(this.value);
     }
 

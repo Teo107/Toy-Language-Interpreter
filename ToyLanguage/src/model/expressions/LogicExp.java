@@ -11,7 +11,7 @@ public class LogicExp implements IExp {
     private IExp e2;
     int op; // 1 - and; 2 - or
 
-    public LogicExp(int op, IExp e1,  IExp e2) {
+    public LogicExp(int op, IExp e1, IExp e2) {
         this.e1 = e1;
         this.op = op;
         this.e2 = e2;
@@ -21,8 +21,8 @@ public class LogicExp implements IExp {
     public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
         IValue v1, v2;
         v1 = e1.eval(dict);
-        if (v1.getType().equals(new BoolType())){
-            v2=e2.eval(dict);
+        if (v1.getType().equals(new BoolType())) {
+            v2 = e2.eval(dict);
 
             if (v2.getType().equals(new BoolType())) {
                 BoolValue b1 = (BoolValue) v1;
@@ -34,9 +34,9 @@ public class LogicExp implements IExp {
                 else if (op == 2) return new BoolValue(n1 || n2);
                 else throw new MyException("Invalid logic operation");
 
-            }else throw new MyException("Second operand is not boolean");
+            } else throw new MyException("Second operand is not boolean");
 
-        }else throw new MyException("First operand is not boolean");
+        } else throw new MyException("First operand is not boolean");
     }
 
     @Override
@@ -45,8 +45,8 @@ public class LogicExp implements IExp {
     }
 
     @Override
-    public String toString(){
-        String sign = switch (op){
+    public String toString() {
+        String sign = switch (op) {
             case 1 -> "&&";
             case 2 -> "||";
             default -> "?";

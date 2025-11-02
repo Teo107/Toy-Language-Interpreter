@@ -8,7 +8,7 @@ import model.expressions.IExp;
 import model.values.IValue;
 import model.types.IType;
 
-public class AssignStmt implements IStmt{
+public class AssignStmt implements IStmt {
     private String id;
     private IExp exp;
 
@@ -16,6 +16,7 @@ public class AssignStmt implements IStmt{
         this.id = id;
         this.exp = exp;
     }
+
     @Override
     public PrgState execute(PrgState state) throws MyException {
         MyIDictionary<String, IValue> symTbl = state.getSymTable();

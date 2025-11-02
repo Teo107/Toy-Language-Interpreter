@@ -18,23 +18,23 @@ public class ArithExp implements IExp {
     }
 
     @Override
-    public IValue eval(MyIDictionary<String, IValue> dict)  throws MyException{
-        IValue v1,v2;
-        v1= e1.eval(dict);
+    public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
+        IValue v1, v2;
+        v1 = e1.eval(dict);
         if (v1.getType().equals(new IntType())) {
             v2 = e2.eval(dict);
             if (v2.getType().equals(new IntType())) {
-                IntValue i1 = (IntValue)v1;
-                IntValue i2 = (IntValue)v2;
-                int n1,n2;
-                n1= i1.getValue();
+                IntValue i1 = (IntValue) v1;
+                IntValue i2 = (IntValue) v2;
+                int n1, n2;
+                n1 = i1.getValue();
                 n2 = i2.getValue();
-                if (op==1)  return new IntValue(n1+n2);
-                if (op ==2) return new IntValue(n1-n2);
-                if (op==3)  return new IntValue(n1*n2);
-                if (op==4)
-                    if(n2==0) throw new MyException("division by zero");
-                    else  return new IntValue(n1/n2);
+                if (op == 1) return new IntValue(n1 + n2);
+                if (op == 2) return new IntValue(n1 - n2);
+                if (op == 3) return new IntValue(n1 * n2);
+                if (op == 4)
+                    if (n2 == 0) throw new MyException("division by zero");
+                    else return new IntValue(n1 / n2);
             } else
                 throw new MyException("second operand is not an integer");
         } else
@@ -43,14 +43,13 @@ public class ArithExp implements IExp {
     }
 
     @Override
-    public IExp deepCopy()
-    {
+    public IExp deepCopy() {
         return new ArithExp(op, e1.deepCopy(), e2.deepCopy());
     }
 
     @Override
     public String toString() {
-        String sign = switch (op){
+        String sign = switch (op) {
             case 1 -> "+";
             case 2 -> "-";
             case 3 -> "*";

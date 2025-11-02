@@ -2,7 +2,7 @@ package model.adt;
 
 import java.util.Stack;
 
-public class MyStack<T> implements MyIStack<T>{
+public class MyStack<T> implements MyIStack<T> {
     private Stack<T> tail;
 
     public MyStack() {
@@ -30,11 +30,11 @@ public class MyStack<T> implements MyIStack<T>{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         Stack<T> copy = (Stack<T>) this.tail.clone();
-        String result = "[ ";
-        while(!copy.isEmpty())
-            result += copy.pop() + ", ";
+        String result = "[ \n";
+        while (!copy.isEmpty())
+            result += copy.pop() + "\n ";
         result += "]";
         return result;
     }
