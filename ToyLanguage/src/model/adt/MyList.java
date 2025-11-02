@@ -17,13 +17,13 @@ public class MyList<V> implements MyIList<V> {
 
     @Override
     public String toString() {
-        String result = "[ \n";
+        String result = "[\n";
         for (int i = 0; i < this.list.size(); i++) {
             result += list.get(i).toString();
             if (i != this.list.size() - 1)
                 result += "\n ";
         }
-        result += " ]";
+        result += "]";
         return result;
     }
 }

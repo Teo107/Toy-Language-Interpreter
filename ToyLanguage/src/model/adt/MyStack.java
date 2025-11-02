@@ -32,9 +32,9 @@ public class MyStack<T> implements MyIStack<T> {
     @Override
     public String toString() {
         Stack<T> copy = (Stack<T>) this.tail.clone();
-        String result = "[ \n";
+        String result = "[\n";
         while (!copy.isEmpty())
-            result += copy.pop() + "\n ";
+            result += copy.pop() + "\n";
         result += "]";
         return result;
     }
