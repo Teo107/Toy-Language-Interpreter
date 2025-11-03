@@ -1,17 +1,21 @@
 package model.adt;
 
+import exceptions.MyException;
+
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
-public class MyDictionary<K,V> implements MyIDictionary<K,V> {
-    private Map<K,V> map;
+
+public class MyDictionary<K, V> implements MyIDictionary<K, V> {
+    private Map<K, V> map;
+
     public MyDictionary() {
-        this.map = new HashMap<K,V>();
+        this.map = new HashMap<K, V>();
     }
 
     @Override
     public void put(K key, V value) {
-        map.put(key,value);
+        map.put(key, value);
     }
 
     @Override
@@ -25,11 +29,18 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V> {
     }
 
     @Override
+    public void remove(K Key) throws MyException {
+        if (!map.containsKey(Key))
+            throw new MyException("Key not found");
+        map.remove(Key);
+    }
+
+    @Override
     public String toString() {
-        Map<K,V> copy = new HashMap<K,V>(this.map);
+        Map<K, V> copy = new HashMap<K, V>(this.map);
 
         String result = "{ \n";
-        for ( K key: copy.keySet() )
+        for (K key : copy.keySet())
             result += key + "->" + copy.get(key) + "\n";
         result += "}";
         return result;
