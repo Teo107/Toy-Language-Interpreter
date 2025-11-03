@@ -20,6 +20,6 @@ public class StringValue implements IValue {
 
     @Override
     public String toString() {
-        return String.valueOf(this.string);
+        return "\"" + this.string + "\"";
     }
 }

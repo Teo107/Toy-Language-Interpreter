@@ -13,7 +13,9 @@ public class VarExp implements IExp {
 
     @Override
     public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
-        return dict.getValue(id);  // return dict.lookup(id);
+        if(!dict.isDefined(this.id))
+            throw new MyException("Variable id not defined");
+        return dict.getValue(id);
     }
 
     @Override

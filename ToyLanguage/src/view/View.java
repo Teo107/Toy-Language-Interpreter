@@ -7,9 +7,11 @@ import model.PrgState;
 import model.adt.*;
 import model.statements.IStmt;
 import model.values.IValue;
+import model.values.StringValue;
 import repository.IRepository;
 import repository.Repository;
 
+import java.io.BufferedReader;
 import java.util.Scanner;
 
 public class View {
@@ -23,8 +25,9 @@ public class View {
         MyIStack<IStmt> stk = new MyStack<>();
         MyIDictionary<String, IValue> symTbl = new MyDictionary<>();
         MyIList<IValue> out = new MyList<>();
+        MyIDictionary<StringValue, BufferedReader> fileTable = new MyDictionary<>();
 
-        PrgState prg = new PrgState(stk, symTbl, out, program);
+        PrgState prg = new PrgState(stk, symTbl, out, fileTable,program);
         IRepository repo = new Repository(prg);
         Controller controller = new Controller(repo);
 

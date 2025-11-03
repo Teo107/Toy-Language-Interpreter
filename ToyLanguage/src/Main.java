@@ -4,8 +4,10 @@ import model.expressions.VarExp;
 import model.statements.*;
 import model.types.BoolType;
 import model.types.IntType;
+import model.types.StringType;
 import model.values.BoolValue;
 import model.values.IntValue;
+import model.values.StringValue;
 import view.View;
 
 public class Main {
@@ -45,11 +47,22 @@ public class Main {
         );
     }
 
+    public static IStmt exemple4() {
+        return new CompStmt( new VarDeclStmt("varf", new StringType()),
+                new CompStmt(new AssignStmt("varf", new ValueExp(new StringValue("test.in"))), new CompStmt( new OpenRFile(new VarExp("varf")),
+                        new CompStmt(new VarDeclStmt("varc", new IntType()), new CompStmt(new ReadFile(new VarExp("varf"), "varc"),
+                                new CompStmt(new PrintStmt(new VarExp("varc")),
+                                        new CompStmt(new ReadFile(new VarExp("varf"), "varc"), new CompStmt(new PrintStmt(new VarExp("varc")),
+                                                new CloseRFile(new VarExp("varf")))))))))
+        );
+
+    }
+
 
     public static void main(String[] args) {
         View view = new View(null);
 
-        // EXP: 1
+/*        // EXP: 1
         System.out.println("First example: \n");
         view.run(exemple1());
 
@@ -59,8 +72,11 @@ public class Main {
 
         // EXP: 3
         System.out.println("\n\nThird example: \n");
-        view.run(exemple3());
+        view.run(exemple3());*/
 
+        // EXP: 4
+        System.out.println("\n\nFourth example: \n");
+        view.run(exemple4());
     }
 
 
