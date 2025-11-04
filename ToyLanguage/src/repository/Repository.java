@@ -18,9 +18,7 @@ public class Repository implements IRepository {
     public Repository(PrgState prgState) {
         this.prgStates = new ArrayList<>();
         this.prgStates.add(prgState);
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Log file path nane: ");
-        this.logFilePath = scan.nextLine();
+        this.logFilePath = "log.txt";
     }
 
     @Override
