@@ -36,13 +36,36 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
+
+    @Override
     public String toString() {
+        if (map.isEmpty())
+            return "empty";
+
+        boolean isFileTable = false;
+        for (K key : map.keySet())
+            if (key instanceof model.values.StringValue) {
+                isFileTable = true;
+                break;
+            }
+
+        StringBuilder result = new StringBuilder();
+
+        if (isFileTable) {
+            for (K key : map.keySet())
+                result.append(((model.values.StringValue) key).getValue());
+            return result.toString();
+        }
+
         Map<K, V> copy = new HashMap<K, V>(this.map);
 
-        String result = "{ \n";
+        result = new StringBuilder("{ \n");
         for (K key : copy.keySet())
-            result += key + "->" + copy.get(key) + "\n";
-        result += "}";
-        return result;
+            result.append(key).append("->").append(copy.get(key)).append("\n");
+        result.append("}");
+        return result.toString();
     }
 }

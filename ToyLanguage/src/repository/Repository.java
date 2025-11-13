@@ -2,6 +2,7 @@ package repository;
 
 import exceptions.MyException;
 import model.PrgState;
+import model.values.StringValue;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -15,10 +16,10 @@ public class Repository implements IRepository {
     private String logFilePath;
 
 
-    public Repository(PrgState prgState) {
+    public Repository(PrgState prgState,  String logFilePath) {
         this.prgStates = new ArrayList<>();
         this.prgStates.add(prgState);
-        this.logFilePath = "log.txt";
+        this.logFilePath = logFilePath;
     }
 
     @Override
@@ -43,11 +44,11 @@ public class Repository implements IRepository {
             logFile.println();
 
             logFile.println("FileTable:");
-            logFile.println("empty");
+            logFile.println(state.getFileTable().toString());
             logFile.println();
 
-            logFile.println("-----------------------------------------------------------------------------------------------------------");
-            logFile.println("-----------------------------------------------------------------------------------------------------------");
+            logFile.println("=====================================================================================================================");
+
             logFile.println();
 
         } catch (Exception e) {
