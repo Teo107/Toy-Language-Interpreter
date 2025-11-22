@@ -9,5 +9,4 @@ public interface MyIDictionary<K, V> {
     public String toString();
     public void remove(K key) throws MyException;
     public boolean isEmpty();
-
 }
