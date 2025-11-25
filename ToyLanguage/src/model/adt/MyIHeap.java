@@ -7,6 +7,7 @@ import java.util.Map;
 public interface MyIHeap {
     public int add(IValue value);
     void remove(int address);
+    void update(int address, IValue value);
     public boolean isDefined(int address);
 
     IValue getAddress(int address);

@@ -22,7 +22,7 @@ public class IfStmt implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
         MyIStack<IStmt> stk = state.getExeStack();
-        IValue condValue = exp.eval(state.getSymTable());
+        IValue condValue = exp.eval(state.getSymTable(), state.getHeap());
 
         if (condValue.getType().equals(new BoolType())) {
             BoolValue boolVal = (BoolValue) condValue;

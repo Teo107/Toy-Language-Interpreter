@@ -2,6 +2,7 @@ package model.expressions;
 
 import exceptions.MyException;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.types.BoolType;
 import model.values.IValue;
 import model.values.BoolValue;
@@ -18,11 +19,11 @@ public class LogicExp implements IExp {
     }
 
     @Override
-    public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
+    public IValue eval(MyIDictionary<String, IValue> dict, MyIHeap heap) throws MyException {
         IValue v1, v2;
-        v1 = e1.eval(dict);
+        v1 = e1.eval(dict, heap);
         if (v1.getType().equals(new BoolType())) {
-            v2 = e2.eval(dict);
+            v2 = e2.eval(dict, heap);
 
             if (v2.getType().equals(new BoolType())) {
                 BoolValue b1 = (BoolValue) v1;

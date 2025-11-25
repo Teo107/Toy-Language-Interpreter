@@ -2,6 +2,7 @@ package model.expressions;
 
 import exceptions.MyException;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.values.IValue;
 
 public class VarExp implements IExp {
@@ -12,7 +13,7 @@ public class VarExp implements IExp {
     }
 
     @Override
-    public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
+    public IValue eval(MyIDictionary<String, IValue> dict, MyIHeap heap) throws MyException {
         if(!dict.isDefined(this.id))
             throw new MyException("Variable id not defined");
         return dict.getValue(id);

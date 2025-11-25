@@ -4,6 +4,7 @@ import com.sun.jdi.IntegerValue;
 import exceptions.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.expressions.IExp;
 import model.types.IntType;
 import model.types.StringType;
@@ -27,6 +28,7 @@ public class ReadFile implements IStmt {
     public PrgState execute(PrgState state) throws MyException {
         MyIDictionary<String, IValue> symTable = state.getSymTable();
         MyIDictionary<StringValue, BufferedReader> fileTable = state.getFileTable();
+        MyIHeap heap = state.getHeap();
 
         if (!symTable.isDefined(varName))
             throw new MyException("Variable is not defined");
@@ -35,7 +37,7 @@ public class ReadFile implements IStmt {
         if (!value.getType().equals(new IntType()))
             throw new MyException("Variable must be Integer");
 
-        IValue fileNameVal = exp.eval(symTable);
+        IValue fileNameVal = exp.eval(symTable, heap);
         if (!fileNameVal.getType().equals(new StringType()))
             throw new MyException("ReadFile need a String for the filename");
 

@@ -2,6 +2,7 @@ package model.expressions;
 
 import exceptions.MyException;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.types.IType;
 import model.types.IntType;
 import model.values.BoolValue;
@@ -20,11 +21,11 @@ public class RelationalExp implements IExp {
     }
 
     @Override
-    public IValue eval(MyIDictionary<String, IValue> dict) throws MyException {
+    public IValue eval(MyIDictionary<String, IValue> dict, MyIHeap heap) throws MyException {
         IValue v1, v2;
-        v1 = e1.eval(dict);
+        v1 = e1.eval(dict, heap);
         if (v1.getType().equals((new IntType()))) {
-            v2 = e2.eval(dict);
+            v2 = e2.eval(dict, heap);
             if (v2.getType().equals((new IntType()))) {
                 IntValue i1 = (IntValue) v1;
                 IntValue i2 = (IntValue) v2;

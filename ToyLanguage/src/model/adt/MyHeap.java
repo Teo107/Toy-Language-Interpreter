@@ -25,6 +25,11 @@ public class MyHeap implements MyIHeap{
     }
 
     @Override
+    public void update(int address, IValue value) {
+        heap.put(address, value);
+    }
+
+    @Override
     public boolean isDefined(int address) {
         return heap.containsKey(address);
     }
@@ -53,5 +58,20 @@ public class MyHeap implements MyIHeap{
     public void setContent(Map<Integer, IValue> content) {
         heap.clear();
         heap.putAll(content);
+    }
+
+    @Override
+    public String toString() {
+        if(heap.isEmpty())
+            return "empty";
+
+            StringBuilder result = new StringBuilder();
+            result.append("{\n");
+            for(int key : heap.keySet()){
+                result.append(key).append("->").append(heap.get(key)).append(" \n");
+            }
+            result.append("}");
+
+            return result.toString();
     }
 }

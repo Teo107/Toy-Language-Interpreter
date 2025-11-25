@@ -68,4 +68,9 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
         result.append("}");
         return result.toString();
     }
+
+    @Override
+    public Map<K,V> getContent(){
+        return map;
+    }
 }

@@ -20,7 +20,7 @@ public class OpenRFile implements IStmt {
 
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        IValue val = exp.eval(state.getSymTable());
+        IValue val = exp.eval(state.getSymTable(), state.getHeap());
         if (!val.getType().equals(new StringType())) {
             throw new MyException("OpenRFile expects a string value");
         }

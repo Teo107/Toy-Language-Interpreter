@@ -21,7 +21,7 @@ public class CloseRFile implements IStmt {
     public PrgState execute(PrgState state) throws MyException {
         MyIDictionary<StringValue, BufferedReader> fileTable = state.getFileTable();
 
-        IValue val = exp.eval(state.getSymTable());
+        IValue val = exp.eval(state.getSymTable(), state.getHeap());
         if (!val.getType().equals(new StringType()))
             throw new MyException("CloseRFile must have a string expression");
 
