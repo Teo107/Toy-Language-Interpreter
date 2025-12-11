@@ -8,6 +8,7 @@ import model.values.IValue;
 import model.values.RefValue;
 import repository.IRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,24 @@ public class Controller {
         this.repo = repo;
     }
 
-    public Map<Integer, IValue> unsafeGarbageCollector(List<Integer> symTableAddr, Map<Integer, IValue> heap) {
+    private List<Integer> getReachableAddresses(List<Integer> roots, Map<Integer, IValue> heap) {
+        List<Integer> reachable = new ArrayList<>(roots);
+
+        for (int i = 0; i < reachable.size(); i++) {
+            int addr = reachable.get(i);
+            IValue value = heap.get(addr);
+            if (value instanceof RefValue refVal) {
+                int pointed = refVal.getAddress();
+
+                if(!reachable.contains(pointed))
+                    reachable.add(pointed);
+            }
+        }
+
+        return reachable;
+    }
+
+    public Map<Integer, IValue> safeGarbageCollector(List<Integer> symTableAddr, Map<Integer, IValue> heap) {
         return heap.entrySet().stream()
                 .filter(e -> symTableAddr.contains(e.getKey()))
                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -51,9 +69,11 @@ public class Controller {
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
             repo.logPrgStateExec();
-            prg.getHeap().setContent(unsafeGarbageCollector(
-                    getAddrFromSymTable(prg.getSymTable().getContent().values()),
-                    prg.getHeap().getContent()));
+            prg.getHeap().setContent(
+                    safeGarbageCollector(getReachableAddresses(getAddrFromSymTable(prg.getSymTable().getContent().values()),
+                                    prg.getHeap().getContent()), prg.getHeap().getContent()
+                    )
+            );
             repo.logPrgStateExec();
         }
     }

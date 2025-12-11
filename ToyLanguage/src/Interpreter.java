@@ -120,17 +120,20 @@ public class Interpreter {
         );
     }
 
-    public static IStmt exemple9() {
-        // Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))
-        return new CompStmt(
-                new VarDeclStmt("v", new RefType(new IntType())),
-                new CompStmt(new HeapAllocationStatement("v", new ValueExp(new IntValue(20))),
-                        new CompStmt(new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
-                                new CompStmt(new HeapAllocationStatement("a", new VarExp("v")),
-                                        new CompStmt(new HeapAllocationStatement("v", new ValueExp(new IntValue(30))),
-                                                new PrintStmt(new HeapReadingExp(new HeapReadingExp(new VarExp("a"))))))))
-        );
-    }
+
+public static IStmt exemple9() {
+    // Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))
+    return new CompStmt(
+            new VarDeclStmt("v", new RefType(new IntType())),
+            new CompStmt(new HeapAllocationStatement("v", new ValueExp(new IntValue(20))),
+                    new CompStmt(new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
+                            new CompStmt(new HeapAllocationStatement("a", new VarExp("v")),
+                                    new CompStmt(new HeapAllocationStatement("v", new ValueExp(new IntValue(30))),
+                                            new PrintStmt(new HeapReadingExp(new HeapReadingExp(new VarExp("a"))))))))
+    );
+}
+
+
 
     public static IStmt exemple10() {
         //int v; v=4; (while (v>0) print(v);v=v-1);print(v)

@@ -9,7 +9,6 @@ import model.types.RefType;
 import model.values.IValue;
 import model.values.RefValue;
 
-import javax.lang.model.type.ReferenceType;
 
 public class HeapAllocationStatement implements IStmt {
     private String id;
@@ -39,6 +38,10 @@ public class HeapAllocationStatement implements IStmt {
             throw new MyException("Expression type is not a reference type");
 
         int address = heap.add(expValue);
+
+        if (heap.isDefined(address) && heap.getAddress(address) != expValue) {
+            throw new MyException("Heap allocation failed");
+        }
 
         symTable.put(id, new RefValue(address, refType.getInner()));
 
