@@ -73,4 +73,13 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     public Map<K,V> getContent(){
         return map;
     }
+
+    @Override
+    public MyIDictionary<K, V> deepCopy() {
+        MyIDictionary<K, V> copy = new MyDictionary<>();
+        for (K key: map.keySet()){
+            copy.put(key, map.get(key));
+        }
+        return copy;
+    }
 }

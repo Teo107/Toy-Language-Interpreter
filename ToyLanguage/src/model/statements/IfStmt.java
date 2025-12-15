@@ -32,7 +32,7 @@ public class IfStmt implements IStmt {
                 stk.push(elseS);
         } else
             throw new MyException("Condition expression is not of type bool!");
-        return state;
+        return null;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class HeapAllocationStatement implements IStmt {
 
         symTable.put(id, new RefValue(address, refType.getInner()));
 
-        return state;
+        return null;
     }
 
     @Override

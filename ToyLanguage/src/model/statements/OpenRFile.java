@@ -37,7 +37,7 @@ public class OpenRFile implements IStmt {
             throw new MyException("Could not open file: " + sv.getValue());
         }
 
-        return state;
+        return null;
     }
 
     @Override

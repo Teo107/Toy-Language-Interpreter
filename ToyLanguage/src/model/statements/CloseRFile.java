@@ -38,7 +38,7 @@ public class CloseRFile implements IStmt {
             throw new MyException("Error while closing file");
         }
 
-        return state;
+        return null;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class AssignStmt implements IStmt {
         } else {
             throw new MyException("The used variable " + id + " was not declared before");
         }
-        return state;
+        return null;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class HeapWriteStmt implements IStmt{
             throw new MyException("Expression is not a reference value");
 
         heap.update(address,expValue);
-        return state;
+        return null;
 
     }
 

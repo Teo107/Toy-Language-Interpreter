@@ -59,7 +59,7 @@ public class ReadFile implements IStmt {
             throw new MyException("Error reading file");
         }
 
-        return state;
+        return null;
     }
 
 

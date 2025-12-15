@@ -13,4 +13,5 @@ public interface MyIDictionary<K, V> {
     public boolean isEmpty();
 
     Map<K,V> getContent();
+    MyIDictionary<K,V> deepCopy();
 }

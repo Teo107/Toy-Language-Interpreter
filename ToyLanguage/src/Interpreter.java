@@ -146,6 +146,24 @@ public static IStmt exemple9() {
         ));
     }
 
+    public static IStmt exemple11() {
+        // int v; Ref int a;
+        // v = 10; new(a,22);
+        // fork( wH(a,30); v=32; print(v); print(rH(a)) );
+        // print(v); print(rH(a));
+        return new CompStmt(
+                new VarDeclStmt("v", new IntType()),
+                new CompStmt(new VarDeclStmt("a", new RefType(new IntType())),
+                        new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(10))),
+                                new CompStmt(new HeapAllocationStatement("a", new ValueExp(new IntValue(22))),
+                                        new CompStmt(new ForkStmt(
+                                                        new CompStmt(new HeapWriteStmt("a", new ValueExp(new IntValue(30))),
+                                                                new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(32))),
+                                                                        new CompStmt(new PrintStmt(new VarExp("v")), new PrintStmt(new HeapReadingExp(new VarExp("a"))))))),
+                                                new CompStmt(new PrintStmt(new VarExp("v")), new PrintStmt(new HeapReadingExp(new VarExp("a"))))))))
+        );
+    }
+
 
     public static void main(String[] args) {
         // Example 1
@@ -203,6 +221,11 @@ public static IStmt exemple9() {
         IRepository repo10 = new Repository(prg10, "log10.txt");
         Controller ctr10 = new Controller(repo10);
 
+        IStmt ex11 = exemple11();
+        PrgState prg11 = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), new MyHeap(), ex11);
+        IRepository repo11 = new Repository(prg11, "log11.txt");
+        Controller ctr11 = new Controller(repo11);
+
 
 
         TextMenu menu = new TextMenu();
@@ -217,6 +240,7 @@ public static IStmt exemple9() {
         menu.addCommand(new RunExample("8", ex8.toString(), ctr8));
         menu.addCommand(new RunExample("9", ex9.toString(), ctr9));
         menu.addCommand(new RunExample("10", ex10.toString(), ctr10));
+        menu.addCommand(new RunExample("11", ex11.toString(), ctr11));
 
 
         menu.show();

@@ -2,14 +2,12 @@ package repository;
 
 import exceptions.MyException;
 import model.PrgState;
-import model.values.StringValue;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Repository implements IRepository {
     private List<PrgState> prgStates;
@@ -22,15 +20,27 @@ public class Repository implements IRepository {
         this.logFilePath = logFilePath;
     }
 
+//    @Override
+//    public PrgState getCrtPrg() {
+//        return prgStates.getFirst();
+//    }
+
     @Override
-    public PrgState getCrtPrg() {
-        return prgStates.getFirst();
+    public List<PrgState> getPrgList() {
+        return prgStates;
     }
 
     @Override
-    public void logPrgStateExec() throws MyException {
-        PrgState state = prgStates.get(0);
+    public void setPrgList(List<PrgState> prgList) {
+        this.prgStates = prgList;
+    }
+
+    @Override
+    public void logPrgStateExec(PrgState state) throws MyException {
         try (PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
+            logFile.println("ID: " + state.getId());
+            logFile.println();
+
             logFile.println("ExeStack:");
             logFile.println(state.getExeStack().toString());
             logFile.println();
