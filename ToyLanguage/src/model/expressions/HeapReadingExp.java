@@ -3,10 +3,12 @@ package model.expressions;
 import exceptions.MyException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
+import model.types.IType;
+import model.types.RefType;
 import model.values.IValue;
 import model.values.RefValue;
 
-public class HeapReadingExp implements IExp{
+public class HeapReadingExp implements IExp {
     private IExp exp;
 
     public HeapReadingExp(IExp exp) {
@@ -17,12 +19,12 @@ public class HeapReadingExp implements IExp{
     public IValue eval(MyIDictionary<String, IValue> dict, MyIHeap heap) throws MyException {
         IValue value = exp.eval(dict, heap);
 
-        if(!(value instanceof RefValue))
+        if (!(value instanceof RefValue))
             throw new MyException("Value is not a reference value");
 
         int address = ((RefValue) value).getAddress();
 
-        if(!heap.isDefined(address))
+        if (!heap.isDefined(address))
             throw new MyException("Address is not defined");
 
         return heap.getAddress(address);
@@ -31,6 +33,15 @@ public class HeapReadingExp implements IExp{
     @Override
     public IExp deepCopy() {
         return new HeapReadingExp(exp.deepCopy());
+    }
+
+    @Override
+    public IType typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType type = exp.typecheck(typeEnv);
+        if (type instanceof RefType) {
+            RefType refT = (RefType) type;
+            return refT.getInner();
+        } else throw new MyException("Type is not a reference type");
     }
 
     @Override

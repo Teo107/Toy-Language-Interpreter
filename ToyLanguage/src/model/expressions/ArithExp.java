@@ -1,8 +1,10 @@
 package model.expressions;
 
+import com.sun.jdi.Type;
 import exceptions.MyException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
+import model.types.IType;
 import model.types.IntType;
 import model.values.IValue;
 import model.values.IntValue;
@@ -46,6 +48,19 @@ public class ArithExp implements IExp {
     @Override
     public IExp deepCopy() {
         return new ArithExp(op, e1.deepCopy(), e2.deepCopy());
+    }
+
+    @Override
+    public IType typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType t1 = e1.typecheck(typeEnv);
+        IType t2 = e2.typecheck(typeEnv);
+
+        if (t1.equals(new IntType())) {
+            if (t2.equals(new IntType()))
+                return new IntType();
+            else throw new MyException("Second operand is not an integer");
+
+        } else throw new MyException("First operand is not an integer");
     }
 
     @Override

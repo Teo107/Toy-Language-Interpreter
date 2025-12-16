@@ -4,6 +4,7 @@ import exceptions.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
 import model.expressions.IExp;
+import model.types.IType;
 import model.types.StringType;
 import model.values.IValue;
 import model.values.StringValue;
@@ -43,6 +44,16 @@ public class OpenRFile implements IStmt {
     @Override
     public IStmt deepCopy() {
         return new OpenRFile(exp.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType type = exp.typecheck(typeEnv);
+        if(!type.equals(new StringType()))
+            throw new MyException("OpenRFile is not a string");
+
+        return typeEnv;
+
     }
 
     @Override

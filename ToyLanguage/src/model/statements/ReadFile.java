@@ -1,11 +1,11 @@
 package model.statements;
 
-import com.sun.jdi.IntegerValue;
 import exceptions.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.expressions.IExp;
+import model.types.IType;
 import model.types.IntType;
 import model.types.StringType;
 import model.values.IValue;
@@ -66,6 +66,21 @@ public class ReadFile implements IStmt {
     @Override
     public IStmt deepCopy() {
         return new ReadFile(exp.deepCopy(), varName);
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType expType = exp.typecheck(typeEnv);
+
+        if (!expType.equals(new StringType()))
+            throw new MyException("ReadFile: expression is not string");
+
+        IType varType = typeEnv.getValue(varName);
+
+        if (!varType.equals(new IntType()))
+            throw new MyException("ReadFile: variable is not int");
+
+        return typeEnv;
     }
 
     @Override

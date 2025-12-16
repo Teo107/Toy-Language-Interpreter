@@ -5,6 +5,7 @@ import model.PrgState;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.expressions.IExp;
+import model.types.IType;
 import model.types.RefType;
 import model.values.IValue;
 import model.values.RefValue;
@@ -51,6 +52,16 @@ public class HeapAllocationStatement implements IStmt {
     @Override
     public IStmt deepCopy() {
         return new  HeapAllocationStatement(this.id, this.exp.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType idType = typeEnv.getValue(this.id);
+        IType expType = exp.typecheck(typeEnv);
+
+        if(!idType.equals(expType))
+            throw new MyException("Types do not match");
+        return typeEnv;
     }
 
     @Override

@@ -7,6 +7,7 @@ import model.adt.MyIHeap;
 import model.adt.MyIStack;
 import model.expressions.IExp;
 import model.types.BoolType;
+import model.types.IType;
 import model.values.BoolValue;
 import model.values.IValue;
 
@@ -39,6 +40,15 @@ public class WhileStmt implements IStmt{
     @Override
     public IStmt deepCopy() {
         return new WhileStmt(exp.deepCopy(), stmt.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType whileType = exp.typecheck(typeEnv);
+        if(whileType.equals(new BoolType())){
+            stmt.typecheck(typeEnv.deepCopy());
+            return typeEnv;
+        } else throw new MyException("While expression is not of type bool");
     }
 
     @Override

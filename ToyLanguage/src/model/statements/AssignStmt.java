@@ -6,6 +6,7 @@ import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.adt.MyIStack;
 import model.expressions.IExp;
+import model.types.BoolType;
 import model.values.IValue;
 import model.types.IType;
 
@@ -40,6 +41,18 @@ public class AssignStmt implements IStmt {
     @Override
     public IStmt deepCopy() {
         return new AssignStmt(id, exp.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typecheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        if(!typeEnv.isDefined(id))
+            throw new MyException("Variable not declared");
+
+        IType varType = typeEnv.getValue(id);
+        IType expType = exp.typecheck(typeEnv);
+        if (varType.equals(expType))
+            return typeEnv;
+        else throw new MyException("Type of variable is not assigned");
     }
 
 
