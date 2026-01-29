@@ -59,8 +59,11 @@ public class HeapAllocationStatement implements IStmt {
         IType idType = typeEnv.getValue(this.id);
         IType expType = exp.typecheck(typeEnv);
 
-        if(!idType.equals(expType))
-            throw new MyException("Types do not match");
+        if(!(idType instanceof RefType))
+            throw new MyException("Type is not a reference");
+        RefType refT = (RefType) idType;
+        if(!refT.getInner().equals(expType))
+            throw new MyException("Type is not a reference");
         return typeEnv;
     }
 

@@ -10,7 +10,6 @@ import model.types.RefType;
 import model.values.IValue;
 import model.values.RefValue;
 
-import java.sql.Ref;
 
 public class HeapWriteStmt implements IStmt{
     private String id;

@@ -30,6 +30,12 @@ public class MyStack<T> implements MyIStack<T> {
     }
 
     @Override
+    public Stack<T> getStack() {
+        return tail;
+    }
+
+
+    @Override
     public String toString() {
         Stack<T> copy = (Stack<T>) this.tail.clone();
         String result = "[\n";

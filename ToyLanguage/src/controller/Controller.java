@@ -67,15 +67,15 @@ public class Controller {
     }
 
     private void logPrg(List<PrgState> prgList) throws MyException {
-        try{
-            prgList.stream().forEach(prg->{
-                try{
+        try {
+            prgList.stream().forEach(prg -> {
+                try {
                     repo.logPrgStateExec(prg);
-                }catch (MyException e){
+                } catch (MyException e) {
                     throw new RuntimeException(e);
                 }
             });
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new MyException(e.getMessage());
         }
     }
@@ -100,7 +100,7 @@ public class Controller {
                     .collect(Collectors.toList());
 
             prgList.addAll(newPrgList);
-        } catch(InterruptedException | RuntimeException exception) {
+        } catch (InterruptedException | RuntimeException exception) {
             throw new MyException(exception.getMessage());
         }
         logPrg(prgList);
@@ -108,28 +108,46 @@ public class Controller {
     }
 
 
-        public void allStep () throws MyException {
-            executor = Executors.newFixedThreadPool(2);
-            List<PrgState> prgList = removeCompletedPrg(repo.getPrgList());
+    public void allStep() throws MyException {
+        executor = Executors.newFixedThreadPool(2);
+        List<PrgState> prgList = removeCompletedPrg(repo.getPrgList());
 
-            while (!prgList.isEmpty()) {
+        while (!prgList.isEmpty()) {
 
-                List<Integer> symTableAddresses = new ArrayList<>();
+            List<Integer> symTableAddresses = new ArrayList<>();
 
-                for (PrgState prg : prgList) {
-                    symTableAddresses.addAll(getAddrFromSymTable(prg.getSymTable().getContent().values()));
-                }
-                Map<Integer, IValue> heap = safeGarbageCollector(getReachableAddresses(symTableAddresses, prgList.get(0).getHeap().getContent()), prgList.get(0).getHeap().getContent());
-
-                for(PrgState prg : prgList){
-                    prg.getHeap().setContent(heap);
-                }
-                oneStepForAllPrg(prgList);
-                prgList = removeCompletedPrg(repo.getPrgList());
+            for (PrgState prg : prgList) {
+                symTableAddresses.addAll(getAddrFromSymTable(prg.getSymTable().getContent().values()));
             }
+            Map<Integer, IValue> heap = safeGarbageCollector(getReachableAddresses(symTableAddresses, prgList.get(0).getHeap().getContent()), prgList.get(0).getHeap().getContent());
 
-            executor.shutdownNow();
-            repo.setPrgList(prgList);
+            for (PrgState prg : prgList) {
+                prg.getHeap().setContent(heap);
+            }
+            oneStepForAllPrg(prgList);
+            prgList = removeCompletedPrg(repo.getPrgList());
         }
 
+        executor.shutdownNow();
+        repo.setPrgList(prgList);
     }
+
+    public IRepository getRepo() {
+        return repo;
+    }
+
+    public void oneStepForAllPrg() throws MyException {
+        executor = Executors.newFixedThreadPool(2);
+
+        List<PrgState> prgList = removeCompletedPrg(repo.getPrgList());
+        if (prgList.isEmpty()) {
+            executor.shutdownNow();
+            return;
+        }
+
+        oneStepForAllPrg(prgList);
+
+        executor.shutdownNow();
+    }
+
+}

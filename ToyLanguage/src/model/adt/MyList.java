@@ -16,6 +16,11 @@ public class MyList<V> implements MyIList<V> {
     }
 
     @Override
+    public List<V> getList() {
+        return list;
+    }
+
+    @Override
     public String toString() {
         String result = "[\n";
         for (int i = 0; i < this.list.size(); i++) {

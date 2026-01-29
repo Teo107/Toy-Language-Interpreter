@@ -1,3 +1,4 @@
+package view;
 import controller.Controller;
 import exceptions.MyException;
 import model.PrgState;
@@ -147,8 +148,7 @@ public class Interpreter {
     }
 
     public static IStmt exemple11() {
-        // int v; Ref int a;
-        // v = 10; new(a,22);
+        // int v; Ref int a; v = 10; new(a,22);
         // fork( wH(a,30); v=32; print(v); print(rH(a)) );
         // print(v); print(rH(a));
         return new CompStmt(
