@@ -164,6 +164,25 @@ public class Interpreter {
         );
     }
 
+    // --------------------------------------
+    // exam example 12 For
+    // Ref int a; new (a,20);
+    // (for(v=0;v<3;v=v+1) fork (print(v);v=v*rh(a)));
+    //print rh(a))
+    public static IStmt exemple12() {
+        return new CompStmt(
+                new VarDeclStmt("a", new RefType(new IntType())),
+                new CompStmt(
+                        new HeapAllocationStatement("a", new ValueExp(new IntValue(20))),
+                        new CompStmt(new ForStmt("v", new ValueExp(new IntValue(0)),
+                                new ValueExp(new IntValue(3)),
+                                new ArithExp(1, new VarExp("v"), new ValueExp(new IntValue(1))),
+                                new ForkStmt(new CompStmt(new PrintStmt(new VarExp("v")),
+                                        new AssignStmt("v", new ArithExp(3, new VarExp("v"), new HeapReadingExp(new VarExp("a"))))))),
+                                new PrintStmt(new HeapReadingExp(new VarExp("a")))))
+        );
+
+    }
 
     public static void main(String[] args) {
 
@@ -301,6 +320,19 @@ public class Interpreter {
             menu.addCommand(new RunExample("11", ex11.toString(), ctr11));
         } catch (MyException e){
             System.out.println("Ex11: Typecheck failed");
+        }
+
+
+        // FOR
+        try {
+            IStmt ex12 = exemple12();
+            ex12.typecheck(new MyDictionary<>());
+            PrgState prg12 = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), new MyHeap(), ex12);
+            IRepository repo12 = new Repository(prg12, "log12.txt");
+            Controller ctr12 = new Controller(repo12);
+            menu.addCommand(new RunExample("12", ex12.toString(), ctr12));
+        } catch (MyException e){
+            System.out.println("Ex12: Typecheck failed");
         }
 
         menu.show();

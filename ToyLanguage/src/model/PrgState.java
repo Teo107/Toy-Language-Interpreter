@@ -19,6 +19,7 @@ public class PrgState {
     private MyIHeap heap;
     private int id;
     private static int lastId = 0;
+    private MyILock lockTable;
 
     IStmt originalProgram;
 
@@ -62,6 +63,10 @@ public class PrgState {
     }
     public int getId() {
         return id;
+    }
+
+    public MyILock getLockTable() {
+        return lockTable;
     }
 
     // setters

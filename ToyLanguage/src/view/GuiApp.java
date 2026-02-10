@@ -34,6 +34,7 @@ public class GuiApp extends Application {
         programs.add(Interpreter.exemple9());
         programs.add(Interpreter.exemple10());
         programs.add(Interpreter.exemple11());
+        programs.add(Interpreter.exemple12());
 
         ListView<String> listView = new ListView<>();
         for (IStmt stmt : programs) {
